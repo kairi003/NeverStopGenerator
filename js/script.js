@@ -25,7 +25,7 @@ const frame = document.querySelectorAll('.frame');
 
 input.addEventListener('change', e => {
   const file = e.target.files[0];
-  if(!file.type.match('image.*')) {
+  if (!file.type.match('image.*')) {
     alert('画像を選択してください');
     input.value = '';
     return;
@@ -45,8 +45,9 @@ muted.addEventListener('change', e => {
 
 let encoder;
 make.addEventListener('click', e => {
-  make.disabled = true;  
   input.disabled = true;
+  make.disabled = true;
+  make.textContent = 'making now...'
 
   let nw = img.naturalWidth;
   let nh = img.naturalHeight;
@@ -73,7 +74,7 @@ make.addEventListener('click', e => {
 
   input.disabled = false;
   make.disabled = false;
-  make.innerText = 'make'
+  make.textContent = 'make'
   download.disabled = false;
 });
 

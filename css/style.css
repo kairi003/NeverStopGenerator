@@ -23,3 +23,16 @@ body {
   width: 100%;
   max-width: 1280px;
 }
+
+.twitter button{
+  background-color: #55acee;
+  border: 2px solid #55acee;
+  color: #fff;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.twitter button:hover {
+  background-color: #fff;
+  color: #55acee;
+}

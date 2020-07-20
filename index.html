@@ -5,40 +5,24 @@
   <meta charset="utf-8">
   <meta http-equiv="Content-Language" content="ja">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="twitter:card" content="summary" /> <!--①-->
+  <meta name="twitter:site" content="@kairi_005" /> <!--②-->
+  <meta property="og:url" content="https://kairi003.github.io/NeverStopGenerator/" /> <!--③-->
+  <meta property="og:title" content="止まらないジェネレーター" /> <!--④-->
+  <meta property="og:description" content="例の止まらないGIFアニメーションを生成できるジェネレーター" /> <!--⑤-->
+  <meta property="og:image" content="./media/thumbnail.png" /> <!--⑥-->
   <title>止まらないジェネレーター</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      padding: 1rem 2rem;
-      box-sizing: border-box;
-    }
-
-    .controls * {
-      margin: 0.5rem;
-      font-size: 1.1rem;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    #result {
-      object-fit: contain;
-      width: 100%;
-      max-width: 1280px;
-    }
-  </style>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
   <h1>止まるんじゃねえぞ……</h1>
-  <p>例の止まらないGIFアニメーションを生成できるジェネレーターです．</p>
+  <p>
+    例の止まらないGIFアニメーションを生成できるジェネレーターです．<br>
+    Twitter: <a href="https://twitter.com/kairi_005">kairi_005</a> /
+    GitHub: <a href="https://github.com/kairi003">kairi_003</a>
+  </p>
   <h3>使い方</h3>
   <ol>
     <li>顔面の透過画像を選択します．</li>
@@ -51,6 +35,7 @@
     <label><input type="checkbox" id="muted" checked>mute</label>
     <button id="make" disabled>make</button>
     <button id="download" disabled>download</button>
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 
   <div>

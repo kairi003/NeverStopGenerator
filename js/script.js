@@ -74,7 +74,6 @@ make.addEventListener('click', e => {
     bgm.play();
 
     input.disabled = false;
-    make.disabled = false;
     make.textContent = 'make'
     download.disabled = false;
   }, 100);

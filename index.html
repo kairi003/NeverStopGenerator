@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Language" content="ja">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>止まらないジェネレーター</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      padding: 1rem 2rem;
+      box-sizing: border-box;
+    }
+
+    .controls * {
+      margin: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #result {
+      object-fit: contain;
+      width: 100%;
+      max-width: 1280px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>止まるんじゃねえぞ……</h1>
+  <p>例の止まらないGIFアニメーションを生成できるジェネレーター</p>
+  <h3>使い方</h3>
+  <ol>
+    <li>顔面の透過画像を選択</li>
+    <li>muteをオフでBGMが鳴る</li>
+    <li>makeでGIF生成 (ちょっと重い)</li>
+    <li>downloadでダウンロード</li>
+  </ol>
+  <div class="controls">
+    <input type="file" id="input">
+    <label><input type="checkbox" id="muted" checked>mute</label>
+    <button id="make" disabled>make</button>
+    <button id="download" disabled>download</button>
+  </div>
+
+  <div>
+    <img id="result">
+  </div>
+
+  <div class="hidden">
+
+    <img class="frame" src="./media/frame_000.png">
+    <img class="frame" src="./media/frame_001.png">
+    <img class="frame" src="./media/frame_002.png">
+    <img class="frame" src="./media/frame_003.png">
+    <img class="frame" src="./media/frame_004.png">
+    <img class="frame" src="./media/frame_005.png">
+    <img class="frame" src="./media/frame_006.png">
+    <img class="frame" src="./media/frame_007.png">
+    <img class="frame" src="./media/frame_008.png">
+    <img class="frame" src="./media/frame_009.png">
+    <img class="frame" src="./media/frame_010.png">
+
+    <img id="inputImg">
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <audio id="bgm" src="./media/bgm.m4a" loop muted></audio>
+  </div>
+
+  <script src="./js/jsgif/LZWEncoder.js"></script>
+  <script src="./js/jsgif/NeuQuant.js"></script>
+  <script src="./js/jsgif/GIFEncoder.js"></script>
+
+  <script src="./js/script.js"></script>
+
+</body>
+
+</html>

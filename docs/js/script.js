@@ -34,22 +34,21 @@ input.addEventListener('change', e => {
   img.src = URL.createObjectURL(file);
 });
 
-img.addEventListener('load', e => {
+img.addEventListener('load', e=>{
   make.disabled = false;
 });
 
-muted.addEventListener('change', e => {
+muted.addEventListener('change', e=>{
   bgm.muted = muted.checked;
 });
 
 
-let encoder;
-make.addEventListener('click', e => {
+make.addEventListener('click', e=>{
   input.disabled = true;
   make.disabled = true;
   make.textContent = 'making now...'
 
-  setTimeout(() => {
+  setTimeout(()=>{
     let nw = img.naturalWidth;
     let nh = img.naturalHeight;
     let v = 1.0;
@@ -57,7 +56,8 @@ make.addEventListener('click', e => {
     v = (nh / nw > 143 / 87) ? 87 / nw : 143 / nh;
 
     const ctx = canvas.getContext('2d');
-    encoder = new GIFEncoder();
+
+    const encoder = new GIFEncoder();
     encoder.setRepeat(0);
     encoder.setDelay(1000 / 25);
     encoder.start();
@@ -70,15 +70,20 @@ make.addEventListener('click', e => {
     }
     encoder.finish();
 
-    result.src = 'data:image/gif;base64,' + btoa(encoder.stream().getData());
+    const bin = encoder.stream().bin;
+    const u8 = Uint8Array.from(bin);
+    const blob = new Blob([u8.buffer], {type: 'image/gif'});
+    const blobURL = URL.createObjectURL(blob);
+    URL.revokeObjectURL(result.src);
+    result.src = blobURL;
+
     bgm.play();
 
     input.disabled = false;
     make.textContent = 'make'
     download.disabled = false;
+    dlLink.href = blobURL;
   }, 100);
 });
 
-download.addEventListener('click', e => {
-  encoder.download('runningXXX.gif');
-})
+

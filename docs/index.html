@@ -25,9 +25,10 @@
   </p>
   <h3>使い方</h3>
   <ol>
-    <li>顔面の透過画像を選択します．</li>
+    <li>顔面の透過画像を選択するとプレビューが表示されます．</li>
     <li>muteをオフにするとBGMが鳴ります．</li>
-    <li>makeボタンでGIF画像を生成します．(ちょっと重い)</li>
+    <li>editをオンにすると位置と大きさを調整したり透明色を指定できます．</li>
+    <li>makeボタンでGIF画像を生成します．</li>
     <li>downloadボタンでダウンロードできます．</li>
   </ol>
   <div class="controls">
@@ -36,14 +37,23 @@
     <button id="make" disabled>make</button>
     <a id="dlLink" href download='runningXXX.gif'><button id="download" disabled>download</button></a>
     <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F&ref_src=twsrc%5Etfw&text=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&hashtags=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&tw_p=tweetbutton&url=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F" class="twitter" data-show-count="false"><button>Tweet</button></a>
+    <div>
+      <input type="checkbox" id="edit" disabled><label for="edit">edit</label>
+      <div class="edit-panel">
+        x: <input type="range" id="eX" min="0" max="1280" value="0" step="1">
+        y: <input type="range" id="eY" min="0" max="720" value="0" step="1">
+        scale: <input type="range" id="eScale" min="0.1" max="3" value="1" step="0.01">
+        transparent: <input type="checkbox" id="cTrans"><span><input type="color" id="eTrans" value="#0000FF"><button id="pick">pick</button></span>
+      </div>
+    </div>
   </div>
 
-  <div>
+  <div class="show">
+    <canvas id="sample" width="1280" height="720"></canvas>
     <img id="result">
   </div>
 
   <div class="hidden">
-
     <img class="frame" src="./media/frame_000.png">
     <img class="frame" src="./media/frame_001.png">
     <img class="frame" src="./media/frame_002.png">
@@ -57,7 +67,7 @@
     <img class="frame" src="./media/frame_010.png">
 
     <img id="inputImg">
-    <canvas id="canvas" width="1280" height="720"></canvas>
+    <canvas id="work" width="1280" height="720"></canvas>
     <audio id="bgm" src="./media/bgm.m4a" loop muted></audio>
   </div>
 

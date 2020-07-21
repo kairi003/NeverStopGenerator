@@ -34,56 +34,54 @@ input.addEventListener('change', e => {
   img.src = URL.createObjectURL(file);
 });
 
-img.addEventListener('load', e=>{
+img.addEventListener('load', e => {
   make.disabled = false;
 });
 
-muted.addEventListener('change', e=>{
+muted.addEventListener('change', e => {
   bgm.muted = muted.checked;
 });
 
 
-make.addEventListener('click', e=>{
+make.addEventListener('click', e => {
   input.disabled = true;
   make.disabled = true;
   make.textContent = 'making now...'
 
-  setTimeout(()=>{
-    let nw = img.naturalWidth;
-    let nh = img.naturalHeight;
-    let v = 1.0;
+  let nw = img.naturalWidth;
+  let nh = img.naturalHeight;
+  let v = 1.0;
 
-    v = (nh / nw > 143 / 87) ? 87 / nw : 143 / nh;
+  v = (nh / nw > 143 / 87) ? 87 / nw : 143 / nh;
 
-    const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
 
-    const encoder = new GIFEncoder();
-    encoder.setRepeat(0);
-    encoder.setDelay(1000 / 25);
-    encoder.start();
-    for (let i = 0; i < 11; i++) {
-      ctx.drawImage(frame[i], 0, 0, 1280, 720);
-      let [dw, dh] = [nw * v, nh * v];
-      let [cx, cy] = cors[i];
-      ctx.drawImage(img, cx - dw / 2, cy - dh / 2, dw, dh);
-      encoder.addFrame(ctx);
-    }
-    encoder.finish();
-
-    const bin = encoder.stream().bin;
-    const u8 = Uint8Array.from(bin);
-    const blob = new Blob([u8.buffer], {type: 'image/gif'});
+  const gif = new GIF({
+    quality: 10,
+    workers: 4,
+    workerScript: './js/gif.worker.js',
+    width: canvas.width,
+    height: canvas.height,
+  });
+  for (let i = 0; i < 11; i++) {
+    ctx.drawImage(frame[i], 0, 0, canvas.width, canvas.height);
+    let [dw, dh] = [nw * v, nh * v];
+    let [cx, cy] = cors[i];
+    ctx.drawImage(img, cx - dw / 2, cy - dh / 2, dw, dh);
+    gif.addFrame(ctx, {
+      delay: 1000 / 25,
+      copy: true
+    });
+  }
+  gif.on('finished', blob => {
     const blobURL = URL.createObjectURL(blob);
     URL.revokeObjectURL(result.src);
     result.src = blobURL;
-
     bgm.play();
-
     input.disabled = false;
     make.textContent = 'make'
     download.disabled = false;
     dlLink.href = blobURL;
-  }, 100);
+  });
+  gif.render();
 });
-
-

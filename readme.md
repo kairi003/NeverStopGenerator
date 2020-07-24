@@ -2,7 +2,9 @@
 
 ## 止まらないジェネレーター
 
-止まらないGIF画像を生成するwebジェネレーター
+例の止まらないGIF画像を生成するwebジェネレーター．
+
+BGMも鳴る．
 
 [https://kairi003.github.io/NeverStopGenerator/](https://kairi003.github.io/NeverStopGenerator/)
 

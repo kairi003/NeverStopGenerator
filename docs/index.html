@@ -12,7 +12,9 @@
   <meta property="og:description" content="例の止まらないGIFアニメーションを生成できるジェネレーター" />
   <meta property="og:image" content="https://kairi003.github.io/NeverStopGenerator/media/thumbnail.png" />
   <title>止まらないジェネレーター</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/main.css">
 </head>
 
@@ -25,31 +27,52 @@
   </p>
   <h3>使い方</h3>
   <ol>
-    <li>顔面の透過画像を選択するとプレビューが表示されます．</li>
-    <li>muteをオフにするとBGMが鳴ります．</li>
-    <li>editをオンにすると位置と大きさを調整したり透明色を指定できます．</li>
-    <li>makeボタンでGIF画像を生成します．</li>
-    <li>downloadボタンでダウンロードできます．</li>
+    <li><b>ファイルを選択</b> 画像を選択するとプレビューが表示される</li>
+    <li><b>BGM</b> オンにするとmake後にBGMがかかる</li>
+    <li><b>edit-mode: base</b> 位置とサイズが調整できる</li>
+    <li><b>edit-mode: mask</b> 塗った領域が生成時に透過される</li>
+    <li><b>make</b> GIF画像を生成</li>
+    <li><b>download</b> ダウンロード</li>
   </ol>
   <div class="controls">
     <input type="file" id="input">
-    <label><input type="checkbox" id="muted" checked>mute</label>
+    <input class="btn" type="checkbox" id="unmute"><label for="unmute">BGM</label>
     <button id="make" disabled>make</button>
     <a id="dlLink" href download='runningXXX.gif'><button id="download" disabled>download</button></a>
-    <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F&ref_src=twsrc%5Etfw&text=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&hashtags=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&tw_p=tweetbutton&url=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F" class="twitter" data-show-count="false"><button>Tweet</button></a>
-    <div>
-      <input type="checkbox" id="edit" disabled><label for="edit">edit</label>
-      <div class="edit-panel">
-        x: <input type="range" id="eX" min="0" max="1280" value="0" step="1">
-        y: <input type="range" id="eY" min="0" max="720" value="0" step="1">
-        scale: <input type="range" id="eScale" min="0.1" max="3" value="1" step="0.01">
-        transparent: <input type="checkbox" id="cTrans"><span><input type="color" id="eTrans" value="#0000FF"><button id="pick">pick</button></span>
-      </div>
+    <a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F&ref_src=twsrc%5Etfw&text=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&hashtags=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&tw_p=tweetbutton&url=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F"
+      class="twitter" data-show-count="false"><button>Tweet</button></a>
+  </div>
+  <div class="edit-area controls" id="editArea">
+    edit-mode:
+    <input class="btn" type="radio" name="mode" class="mode" id="noneMode" checked><label for="noneMode">none</label>
+    <input class="btn" type="radio" name="mode" class="mode" id="viewMode"><label for="viewMode">view</label>
+    <input class="btn" type="radio" name="mode" class="mode" id="baseMode"><label for="baseMode">base</label>
+    <input class="btn" type="radio" name="mode" class="mode" id="maskMode"><label for="maskMode">mask</label>
+
+    <div class="edit base-edit">
+      x: <input type="range" id="editX" min="0" max="1280" value="0" step="1">
+      y: <input type="range" id="editY" min="0" max="720" value="0" step="1">
+      scale: <input type="range" id="editScale" min="0.1" max="3" value="1" step="0.01">
+    </div>
+
+    <div class="edit mask-edit">
+      <label for="drawWidth">width: </label><input type="range" id="drawWidth" min="0" max="60" step="10" value="40">
+      <input type="checkbox" id="maskErase"><label for="maskErase">erase</label>
+    </div>
+
+    <div class="edit base-edit mask-edit">
+      <label for="transCheck">transparent: </label><input type="checkbox" id="transCheck"><input type="color"
+        id="editTrans" value="#0000FF"><button id="pick"><span class="material-icons">colorize</span></button>
+    </div>
+
+    <div class="edit-sheet" id="editSheet">
+      <canvas class="layer mask" id="mask" width="1280" height="720"></canvas>
+      <canvas class="layer base" id="base" width="1280" height="720"></canvas>
+      <div class="cursor" id="cursor"></div>
     </div>
   </div>
 
   <div class="show">
-    <canvas id="sample" width="1280" height="720"></canvas>
     <img id="result">
   </div>
 

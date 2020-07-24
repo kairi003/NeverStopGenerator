@@ -224,7 +224,7 @@
 {
   const canvas = document.getElementById('mask');
   const cursor = document.getElementById('cursor');
-  const editTrans = document.getElementById('editTrans');
+  const maskColor = document.getElementById('maskColor');
   const maskErase = document.getElementById('maskErase');
   const drawWidth = document.getElementById('drawWidth');
   const ctx = canvas.getContext('2d');
@@ -258,7 +258,7 @@
     lastPos = pos(e);
     ctx.beginPath();
     ctx.globalCompositeOperation = (maskErase.checked) ? "destination-out" : "source-over";
-    ctx.strokeStyle = editTrans.value;
+    ctx.strokeStyle = maskColor.value;
     ctx.lineWidth = 1.1**parseFloat(drawWidth.value);
     ctx.lineCap = "round";
   }
@@ -311,7 +311,7 @@
       e.preventDefault();
     }
   });
-  editTrans.addEventListener('change', changeColor);
+  maskColor.addEventListener('change', changeColor);
 }
 
 {
@@ -327,4 +327,11 @@
       layer.style.opacity = parseFloat(e.target.value);
     });
   }
+}
+
+{
+  const maskErase = document.getElementById('maskErase');
+  document.getElementById('maskMode').addEventListener('change', e => {
+    maskErase.checked = false;
+  });
 }

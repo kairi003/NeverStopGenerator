@@ -60,6 +60,10 @@
         <label for="baseOpacity">layer opacity: </label><input type="range" id="baseOpacity" min="0" max="1" value="1"
           step="0.1">
       </div>
+      <div>
+        <label for="transCheck">transparent color: </label><input type="checkbox" id="transCheck"><input type="color"
+        id="editTrans" value="#0000FF"><button id="pick"><span class="material-icons">colorize</span></button>
+      </div>
     </div>
 
     <div class="edit mask-edit">
@@ -68,14 +72,12 @@
         <input type="checkbox" id="maskErase"><label for="maskErase">erase</label>
       </div>
       <div>
-        <label for="maskOpacity">layer opacity: </label><input type="range" id="maskOpacity" min="0" max="1" value="0.8"
+        <label for="maskOpacity">layer opacity: </label><input type="range" id="maskOpacity" min="0" max="1" value="0.7"
           step="0.1">
       </div>
-    </div>
-
-    <div class="edit base-edit mask-edit">
-      <label for="transCheck">transparent color: </label><input type="checkbox" id="transCheck"><input type="color"
-        id="editTrans" value="#0000FF"><button id="pick"><span class="material-icons">colorize</span></button>
+      <div>
+        <label for="maskColor">mask color: </label><input type="color" id="maskColor" value="#FF0000">
+      </div>
     </div>
 
     <div class="edit-sheet" id="editSheet">

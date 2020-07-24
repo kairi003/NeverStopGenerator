@@ -313,3 +313,18 @@
   });
   editTrans.addEventListener('change', changeColor);
 }
+
+{
+  const base = document.getElementById('base');
+  const mask = document.getElementById('mask');
+  for (const s of ['base', 'mask']) {
+    const range = document.getElementById(s + 'Opacity');
+    const layer = document.getElementById(s);
+    range.addEventListener('input', e => {
+      layer.style.opacity = parseFloat(e.target.value);
+    });
+    range.addEventListener('change', e => {
+      layer.style.opacity = parseFloat(e.target.value);
+    });
+  }
+}

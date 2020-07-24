@@ -50,18 +50,31 @@
     <input class="btn" type="radio" name="mode" class="mode" id="maskMode"><label for="maskMode">mask</label>
 
     <div class="edit base-edit">
-      x: <input type="range" id="editX" min="0" max="1280" value="0" step="1">
-      y: <input type="range" id="editY" min="0" max="720" value="0" step="1">
-      scale: <input type="range" id="editScale" min="0.1" max="3" value="1" step="0.01">
+      <div>
+        <label for="editX">x: </label><input type="range" id="editX" min="0" max="1280" value="0" step="1">
+        <label for="editY">y: </label><input type="range" id="editY" min="0" max="720" value="0" step="1">
+      </div>
+      <div>
+        <label for="editScale">scale: </label><input type="range" id="editScale" min="0.1" max="3" value="1"
+          step="0.01">
+        <label for="baseOpacity">layer opacity: </label><input type="range" id="baseOpacity" min="0" max="1" value="1"
+          step="0.1">
+      </div>
     </div>
 
     <div class="edit mask-edit">
-      <label for="drawWidth">width: </label><input type="range" id="drawWidth" min="0" max="60" step="10" value="40">
-      <input type="checkbox" id="maskErase"><label for="maskErase">erase</label>
+      <div>
+        <label for="drawWidth">width: </label><input type="range" id="drawWidth" min="0" max="60" step="10" value="40">
+        <input type="checkbox" id="maskErase"><label for="maskErase">erase</label>
+      </div>
+      <div>
+        <label for="maskOpacity">layer opacity: </label><input type="range" id="maskOpacity" min="0" max="1" value="0.8"
+          step="0.1">
+      </div>
     </div>
 
     <div class="edit base-edit mask-edit">
-      <label for="transCheck">transparent: </label><input type="checkbox" id="transCheck"><input type="color"
+      <label for="transCheck">transparent color: </label><input type="checkbox" id="transCheck"><input type="color"
         id="editTrans" value="#0000FF"><button id="pick"><span class="material-icons">colorize</span></button>
     </div>
 

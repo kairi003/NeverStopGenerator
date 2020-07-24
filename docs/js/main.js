@@ -233,11 +233,12 @@
 
   function cursorFollow(e) {
     const v = e.target.width / e.target.clientWidth;
+    const size = 1.1**parseFloat(drawWidth.value) / v;
     Object.assign(cursor.style, {
-      width: ctx.lineWidth / v + 'px',
-      height: ctx.lineWidth / v + 'px',
-      left: e.clientX - ctx.lineWidth / v / 2 + 'px',
-      top: e.clientY - ctx.lineWidth / v / 2 + 'px',
+      width: size + 'px',
+      height: size + 'px',
+      left: e.clientX - size / 2 + 'px',
+      top: e.clientY - size / 2 + 'px',
     });
   }
 

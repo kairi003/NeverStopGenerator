@@ -1,14 +1,15 @@
 body {
-  margin: 2rem 2rem;
-  box-sizing: border-box;
+  margin: auto;
+  max-width: 50rem;
+  background-color: ghostwhite;
 }
 
-body * {
+body>* {
   margin: 1rem;
 }
 
-.controls * {
-  margin: 0.5rem;
+.controls{
+  margin: 0.2rem 0.5rem;
   font-size: 1.1rem;
 }
 
@@ -16,7 +17,7 @@ body * {
   display: none;
 }
 
-.twitter button{
+.twitter button {
   background-color: #55acee;
   border: 2px solid #55acee;
   color: #fff;
@@ -35,16 +36,81 @@ body * {
   max-width: 1280px;
 }
 
-#sample {
-  display: none;
-  background-image: url("../media/test.png");
-  background-size: cover;
+.edit-area * {
+  margin: 0.3rem 0.5rem;
 }
 
-#edit+label+div {
+.edit {
   display: none;
 }
-#edit:checked+label+div {
+
+#noneMode:checked~.edit-sheet {
+  display: none;
+}
+
+#baseMode:checked~.base-edit {
   display: block;
 }
 
+#maskMode:checked~.mask-edit {
+  display: block;
+}
+
+.edit-sheet {
+  position: relative;
+  margin: auto;
+  border: solid 2px gray;
+  width: 100%;
+  max-width: 1280px;
+  padding-top: 56.25%;
+  background-image: url("../media/test.png");
+  background-size: cover;
+  z-index: 0;
+}
+
+.layer {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.layer.base {
+  z-index: 1;
+}
+
+.layer.mask {
+  opacity: 0.8;
+  z-index: 2;
+}
+
+#baseMode:checked~.edit-sheet>.layer.base {
+  pointer-events: auto;
+  cursor: move;
+}
+
+#maskMode:checked~.edit-sheet>.layer.mask {
+  pointer-events: auto;
+}
+
+.cursor {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border: solid 1px black;
+  border-radius: 100%;
+  pointer-events: none !important;
+  opacity: 0.5;
+  z-index: 10;
+}
+
+.layer.mask:hover~.cursor {
+  display: inline-block;
+}

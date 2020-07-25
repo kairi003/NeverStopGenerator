@@ -22,7 +22,6 @@
   <h1>止まるんじゃねえぞ……</h1>
   <p>
     例の止まらないGIFアニメーションを生成できるジェネレーターです．IE非対応．<br>
-    <b>注: iOSのwebview(safari以外のブラウザ)で何故か保存できません．</b><br>
     Twitter: <a href="https://twitter.com/kairi_005">kairi_005</a> /
     GitHub: <a href="https://github.com/kairi003">kairi_003</a>
   </p>
@@ -34,6 +33,7 @@
     <li><b>edit-mode: mask</b> 塗った領域が生成時に透過される</li>
     <li><b>make</b> GIF画像を生成</li>
     <li><b>download</b> ダウンロード</li>
+    <li>downloadがうまく機能しないときは画像を長押して保存してください</li>
   </ol>
   <div class="controls">
     <input type="file" id="input">
@@ -89,7 +89,7 @@
   </div>
 
   <div class="show">
-    <img id="result">
+    <iframe id="iframe" src="./sub.html"></iframe>
   </div>
 
   <div class="hidden">

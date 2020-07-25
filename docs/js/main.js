@@ -210,11 +210,15 @@
         noneMode.checked = true;
         const blobURL = URL.createObjectURL(blob);
         URL.revokeObjectURL(dlLink.href);
-        // result.src = blobURL;
 
-        const reader = new FileReader();
-        reader.onload = e => (result.src = reader.result);
-        reader.readAsDataURL(blob);
+        const ua = navigator.userAgent.toLowerCase();
+        if (~ua.indexOf('iphone') || ~ua.indexOf('ipad')) {
+          const reader = new FileReader();
+          reader.onload = e => (result.src = reader.result);
+          reader.readAsDataURL(blob);
+        } else {
+          result.src = blobURL;
+        }        
 
         bgm.play();
         input.disabled = false;

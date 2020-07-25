@@ -143,82 +143,89 @@
 
 
 {
-  const input = document.getElementById('input');
-  const make = document.getElementById('make');
-  const download = document.getElementById('download');
-  const base = document.getElementById('base');
-  const mask = document.getElementById('mask');
-  const result = document.getElementById('result');
-  const bgm = document.getElementById('bgm');
-  const work = document.getElementById('work');
-  const noneMode = document.getElementById('noneMode');
+  document.getElementById('iframe').onload = e => {
+    const input = document.getElementById('input');
+    const make = document.getElementById('make');
+    const download = document.getElementById('download');
+    const base = document.getElementById('base');
+    const mask = document.getElementById('mask');
+    const result = e.target.contentDocument.getElementById('result');
+    const bgm = document.getElementById('bgm');
+    const work = document.getElementById('work');
+    const noneMode = document.getElementById('noneMode');
 
-  document.getElementById('unmute').addEventListener('change', e => {
-    bgm.muted = !e.target.checked;
-  });
-
-  const diff = [
-    [0, 0],
-    [-16, -5],
-    [-43, -18],
-    [-66, -27],
-    [-69, -14],
-    [-54, -7],
-    [-46, 0],
-    [-6, -27],
-    [-6, -27],
-    [24, -13],
-    [2, 4],
-  ];
-
-  const cw = 1280;
-  const ch = 720;
-
-  const frame = document.querySelectorAll('.frame');
-
-  make.addEventListener('click', e => {
-    input.disabled = true;
-    make.disabled = true;
-    make.textContent = 'making now...'
-
-    const canvas = work;
-    const ctx = canvas.getContext('2d');
-
-    const gif = new GIF({
-      quality: 10,
-      workers: 4,
-      workerScript: './js/gif.worker.js',
-      width: cw,
-      height: ch,
+    document.getElementById('unmute').addEventListener('change', e => {
+      bgm.muted = !e.target.checked;
     });
 
-    for (let i = 0; i < 11; i++) {
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.globalCompositeOperation = "source-over";
-      ctx.drawImage(base, ...diff[i], cw, ch);
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.drawImage(mask, ...diff[i], cw, ch);
-      ctx.globalCompositeOperation = "destination-over";
-      ctx.drawImage(frame[i], 0, 0, cw, ch);
-      gif.addFrame(ctx, {
-        delay: 1000 / 25,
-        copy: true
+    const diff = [
+      [0, 0],
+      [-16, -5],
+      [-43, -18],
+      [-66, -27],
+      [-69, -14],
+      [-54, -7],
+      [-46, 0],
+      [-6, -27],
+      [-6, -27],
+      [24, -13],
+      [2, 4],
+    ];
+
+    const cw = 1280;
+    const ch = 720;
+
+    const frame = document.querySelectorAll('.frame');
+
+    make.addEventListener('click', e => {
+      input.disabled = true;
+      make.disabled = true;
+      make.textContent = 'making now...'
+
+      const canvas = work;
+      const ctx = canvas.getContext('2d');
+
+      const gif = new GIF({
+        quality: 10,
+        workers: 4,
+        workerScript: './js/gif.worker.js',
+        width: cw,
+        height: ch,
       });
-    }
-    gif.on('finished', blob => {
-      noneMode.checked = true;
-      const blobURL = URL.createObjectURL(blob);
-      URL.revokeObjectURL(result.src);
-      result.src = blobURL;
-      bgm.play();
-      input.disabled = false;
-      make.textContent = 'make';
-      make.disabled = false;
-      download.disabled = false;
-      dlLink.href = blobURL;
+
+      for (let i = 0; i < 11; i++) {
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.globalCompositeOperation = "source-over";
+        ctx.drawImage(base, ...diff[i], cw, ch);
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.drawImage(mask, ...diff[i], cw, ch);
+        ctx.globalCompositeOperation = "destination-over";
+        ctx.drawImage(frame[i], 0, 0, cw, ch);
+        gif.addFrame(ctx, {
+          delay: 1000 / 25,
+          copy: true
+        });
+      }
+      gif.on('finished', blob => {
+        noneMode.checked = true;
+        const blobURL = URL.createObjectURL(blob);
+        URL.revokeObjectURL(dlLink.href);
+        // result.src = blobURL;
+
+        const reader = new FileReader();
+        reader.onload = e => (result.src = reader.result);
+        reader.readAsDataURL(blob);
+
+        bgm.play();
+        input.disabled = false;
+        make.textContent = 'make';
+        make.disabled = false;
+        download.disabled = false;
+        dlLink.href = blobURL;
+      });
+      gif.render();
     });
-    gif.render();
-  });
+  }
 }
 
 {
@@ -233,7 +240,7 @@
 
   function cursorFollow(e) {
     const v = e.target.width / e.target.clientWidth;
-    const size = 1.1**parseFloat(drawWidth.value) / v;
+    const size = 1.1 ** parseFloat(drawWidth.value) / v;
     Object.assign(cursor.style, {
       width: size + 'px',
       height: size + 'px',
@@ -259,7 +266,7 @@
     ctx.beginPath();
     ctx.globalCompositeOperation = (maskErase.checked) ? "destination-out" : "source-over";
     ctx.strokeStyle = maskColor.value;
-    ctx.lineWidth = 1.1**parseFloat(drawWidth.value);
+    ctx.lineWidth = 1.1 ** parseFloat(drawWidth.value);
     ctx.lineCap = "round";
   }
 
@@ -287,7 +294,7 @@
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const pixel = imageData.data;
     for (let i = 0; i < pixel.length; i += 4) {
-      [pixel[i], pixel[i+1], pixel[i+2]] = [r, g, b];
+      [pixel[i], pixel[i + 1], pixel[i + 2]] = [r, g, b];
     }
     ctx.putImageData(imageData, 0, 0);
   }

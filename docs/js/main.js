@@ -209,6 +209,7 @@
       noneMode.checked = true;
       const blobURL = URL.createObjectURL(blob);
       URL.revokeObjectURL(result.src);
+      result.src = blobURL;
       bgm.play();
       input.disabled = false;
       make.textContent = 'make';

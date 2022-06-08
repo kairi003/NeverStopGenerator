@@ -28,7 +28,6 @@
   <h3>使い方</h3>
   <ol>
     <li><b>ファイルを選択</b> 画像を選択するとプレビューが表示される</li>
-    <li><b>BGM</b> オンにするとmake後にBGMがかかる</li>
     <li><b>edit-mode: base</b> 位置とサイズが調整できる</li>
     <li><b>edit-mode: mask</b> 塗った領域が生成時に透過される</li>
     <li><b>make</b> GIF画像を生成</li>
@@ -37,7 +36,7 @@
   </ol>
   <div class="controls">
     <input type="file" id="input">
-    <input class="btn" type="checkbox" id="unmute"><label for="unmute">BGM</label>
+    <input class="btn" type="hidden" id="unmute" disabled>
     <button id="make" disabled>make</button>
     <a id="dlLink" href download='runningXXX.gif'><button id="download" disabled>download</button></a>
     <a target="blank" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F&ref_src=twsrc%5Etfw&text=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&hashtags=%E6%AD%A2%E3%81%BE%E3%82%89%E3%81%AA%E3%81%84%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC&tw_p=tweetbutton&url=https%3A%2F%2Fkairi003.github.io%2FNeverStopGenerator%2F"
@@ -107,7 +106,7 @@
 
     <img id="inputImg">
     <canvas id="work" width="1280" height="720"></canvas>
-    <audio id="bgm" src="./media/bgm.m4a" loop muted></audio>
+    <audio id="bgm" src loop muted></audio>
   </div>
 
   <script src="./js/gif.js"></script>
